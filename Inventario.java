@@ -50,52 +50,64 @@ public class Inventario {
     }
 
     public void eliminarCategoria() {
-        boolean encontrado = false;
-        System.out.println("Ingrese el nombre de la categoria");
-        String name = in.nextLine();
-        ListIterator<Categoria> it = categorias.listIterator();
+        if (!categorias.isEmpty()) {
+            boolean encontrado = false;
+            System.out.println("Ingrese el nombre de la categoria");
+            String name = in.nextLine();
+            ListIterator<Categoria> it = categorias.listIterator();
 
-        while (it.hasNext()) {
-            Categoria elem = it.next();
-            if (elem.getName().equalsIgnoreCase(name)) {
-                encontrado = true;
-                it.remove();
-                System.out.println(name + " Elimninada con éxito");
-                break;
+            while (it.hasNext()) {
+                Categoria elem = it.next();
+                if (elem.getName().equalsIgnoreCase(name)) {
+                    encontrado = true;
+                    it.remove();
+                    System.out.println(name + " Elimninada con éxito");
+                    break;
+                }
             }
-        }
-        if (!encontrado) {
-            System.out.println("Categoria no encontrada");
+            if (!encontrado) {
+                System.out.println("Categoria no encontrada");
+            }
+        } else {
+            System.out.println("Inventario vacio");
         }
 
     }
 
     public void addProducto() {
-        boolean encontrado = false;
-        System.out.println("Ingresa el nombre de la categoria");
-        String name = in.nextLine();
-        for (Categoria elem : categorias) {
-            if (elem.getName().equalsIgnoreCase(name)) {
-                encontrado = true;
-                elem.addProductos();
+        if (!categorias.isEmpty()) {
+            boolean encontrado = false;
+            System.out.println("Ingresa el nombre de la categoria");
+            String name = in.nextLine();
+            for (Categoria elem : categorias) {
+                if (elem.getName().equalsIgnoreCase(name)) {
+                    encontrado = true;
+                    elem.addProductos();
+                }
             }
+            if (!encontrado) {
+                System.out.println("La categoria que ingreso no existe");
+            }
+        } else {
+            System.out.println("\nInventario vacio\n");
         }
-        if (!encontrado) {
-            System.out.println("La categoria que ingreso no existe");
-        }
+
     }
 
     public void mostrarInventario() {
-        System.out.println("------- CATEGORIAS -------");
-        for (Categoria elem : categorias) {
-            System.out.println("\n" + elem.getName().toUpperCase());
-            System.out.println("\n------ PRODUCTOS ------");
-            for (Produto elems : elem.getProdutos()) {
-                System.out.println(elems);
+        if (!categorias.isEmpty()) {
+            System.out.println("------- CATEGORIAS -------");
+            for (Categoria elem : categorias) {
+                System.out.println("\n" + elem.getName().toUpperCase());
+                System.out.println("\n------ PRODUCTOS ------");
+                for (Produto elems : elem.getProdutos()) {
+                    System.out.println(elems);
 
+                }
+                System.out.println("\n---------------------------");
             }
-            System.out.println("\n---------------------------");
         }
+
     }
 
     public void editarProducto() {
